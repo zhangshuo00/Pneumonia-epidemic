@@ -19,6 +19,8 @@ import {Scene, Router, Tabs} from 'react-native-router-flux'
 import Msg from './Components/Msg'
 import Doc from './Components/Doc'
 import MsgDetails from './Components/MsgDetails'
+import { Grid, Icon } from '@ant-design/react-native';
+import { outlineGlyphMap } from '@ant-design/icons-react-native/lib/outline';
 
 
 const App = () => {
@@ -33,6 +35,9 @@ const App = () => {
             <Scene 
               key='msg'
               title="消息"
+              icon={
+                ({focused})=><Icon color={focused?'red':'green'} name="home"/>
+              }
             >
               <Scene key='ms' component={Msg}/>
               <Scene key='msgdetails' hideTabBar component={MsgDetails}/>
