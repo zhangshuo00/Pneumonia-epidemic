@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import {
-    SafeAreaView,
     StyleSheet,
-    ScrollView,
     View,
     Text,
     Image,
-    TextInput,
-  } from 'react-native';
+} from 'react-native';
 
 export default class Prodescrip extends Component {
     render() {
@@ -32,12 +29,6 @@ export default class Prodescrip extends Component {
     }
 }
 const styles = StyleSheet.create({
-    search:{
-      width:'85%',
-      height:40,
-      backgroundColor:'#eeeeee',
-      borderRadius:10,
-    },
     box:{
       width:'45%',
       backgroundColor:'white'
