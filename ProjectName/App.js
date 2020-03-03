@@ -21,6 +21,7 @@ import Doc from './Components/Doc'
 import Mybox from './Components/Mybox'
 import MsgDetails from './Components/MsgDetails'
 import ShowMyName from './Components/ShowMyName'
+import Home from './Components/Home'
 import Login from './Components/Login'
 import { Grid, Icon } from '@ant-design/react-native';
 import { outlineGlyphMap } from '@ant-design/icons-react-native/lib/outline';
@@ -42,6 +43,16 @@ const App = () => {
                       activeTintColor='red'
                       inactiveTintColor='blue'
                     >
+                      {/* 首页 */}
+                      <Scene 
+                        key='home'
+                        title="首页"
+                        icon={
+                          ({focused})=><Icon color={focused?'red':'green'} name="home"/>
+                        }
+                        component={Home}
+                      >
+                      </Scene>
                       {/* 消息栏 */}
                       <Scene 
                         key='msg'
