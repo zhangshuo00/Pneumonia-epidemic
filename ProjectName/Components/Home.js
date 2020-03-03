@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, ScrollView,StyleSheet, Dimensions, FlatList } from 'react-native'
+import Button from 'react-native-button'
+import {MessageBarManager} from 'react-native-message-bar'
 
 const {width} = Dimensions.get('window')
 
@@ -31,8 +33,15 @@ export default class Home extends Component {
                 {/* horizontal:实现水平滚动 */}
                 {/* numColumns:实现分栏布局 */}
                 <FlatList
-                    ListHeaderComponent={<Text>头部</Text>}
-                    ListFooterComponent={<Text>尾部</Text>}
+                    ListHeaderComponent={<Button onPress={()=>{
+                        MessageBarManager.showAlert({
+                            title:'提示标题',
+                            message:'具体信息',
+                            alertType: 'info',
+                            stylesheetInfo:{backgroundColor:'blue'}
+                        })
+                    }} style={styles.btn}>头部</Button>}
+                    ListFooterComponent={<Button>尾部</Button>}
                     numColumns={2}
                     data={this.state.data}
                     renderItem={
@@ -54,5 +63,12 @@ const styles = StyleSheet.create({
         backgroundColor:'red',
         justifyContent:'center',
         alignItems:'center'
+    },
+    btn:{
+        width:80,
+        height:40,
+        backgroundColor:'red',
+        borderRadius:20,
+        textAlignVertical:'center'
     }
 })

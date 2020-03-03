@@ -15,7 +15,7 @@ import {
   View,
   Text,
 } from 'react-native'
-import {Scene, Router, Tabs, Drawer, Lightbox, Modal} from 'react-native-router-flux'
+import {Scene, Router, Tabs, Drawer, Lightbox, Modal, Overlay} from 'react-native-router-flux'
 import Msg from './Components/Msg'
 import Doc from './Components/Doc'
 import Mybox from './Components/Mybox'
@@ -23,6 +23,7 @@ import MsgDetails from './Components/MsgDetails'
 import ShowMyName from './Components/ShowMyName'
 import Home from './Components/Home'
 import Login from './Components/Login'
+import Message from './Components/Message'
 import { Grid, Icon } from '@ant-design/react-native';
 import { outlineGlyphMap } from '@ant-design/icons-react-native/lib/outline';
 
@@ -30,6 +31,7 @@ import { outlineGlyphMap } from '@ant-design/icons-react-native/lib/outline';
 const App = () => {
   return (
       <Router>
+        <Overlay>
         <Modal key="modal" hideNavBar>
               <Lightbox key="lightbox">
                 <Drawer
@@ -82,6 +84,8 @@ const App = () => {
               <Scene key="login" component={Login}/>
               <Scene key="login1" component={ShowMyName}/>
         </Modal>
+        <Scene component={Message}/>      
+        </Overlay>
       </Router>
   );
 };
