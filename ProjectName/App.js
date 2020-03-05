@@ -26,6 +26,7 @@ import Login from './Components/Login'
 import Message from './Components/Message'
 import { Grid, Icon } from '@ant-design/react-native';
 import { outlineGlyphMap } from '@ant-design/icons-react-native/lib/outline';
+import MyList from './Components/MyList';
 
 
 const App = () => {
@@ -47,13 +48,13 @@ const App = () => {
                     >
                       {/* 首页 */}
                       <Scene 
-                        key='home'
                         title="首页"
                         icon={
                           ({focused})=><Icon color={focused?'red':'green'} name="home"/>
                         }
-                        component={Home}
                       >
+                        <Scene key='home' component={Home}/>
+                        <Scene key="mylist" component={MyList}/>
                       </Scene>
                       {/* 消息栏 */}
                       <Scene 

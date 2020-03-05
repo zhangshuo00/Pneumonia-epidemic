@@ -1,36 +1,63 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button } from 'react-native'
+import { Text, View, StyleSheet, Button, Animated } from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import { WebView } from 'react-native-webview'
 
 export default class Mybox extends Component {
+    constructor(){
+        super();
+        this.state = {
+            opacity: new Animated.Value(0)
+        }
+    }
+    componentDidMount(){
+        Animated.timing(this.state.opacity,{
+            toValue:1,
+            duration:1000
+        }).start()
+    }
+    back = ()=>{
+        Animated.timing(this.state.opacity,{
+            toValue: 0,
+            duration: 500
+        }).start(Actions.pop)
+    }
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.innerBox}>
-                    <Text> Mybox </Text>
-                    <Button
+                <Animated.View 
+                    style={
+                        [{opacity:this.state.opacity},styles.innerBox]
+                    }
+                > 
+                    <Button 
                         title='返回'
-                        onPress={Actions.pop}
+                        onPress={
+                            this.back
+                        }
                     />
-                </View>
+                    <WebView style={{width:200,height:200}} source={{uri:'https://www.baidu.com'}} />
+                </Animated.View>
             </View>
         )
     }
 }
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:'rgba(40,40,40,.5)',
-        position:'absolute',
-        left:0,
-        top:0,
+        // backgroundColor: 'transparent',
+        backgroundColor: 'rgba(50,50,50,.5)',
+        position: 'absolute',
+        left: 0,
+        top: 0,
         right:0,
-        bottom:0,
-        justifyContent:'center',
-        alignItems:'center'
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     innerBox:{
-        width:'80%',
-        height:'50%',
-        backgroundColor:'red'
+        width: '80%',
+        height: '50%',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView,StyleSheet, Dimensions, FlatList } from 'react-native'
+import { Text, View, ScrollView,StyleSheet, Dimensions, FlatList, Animated } from 'react-native'
 import Button from 'react-native-button'
 import {MessageBarManager} from 'react-native-message-bar'
+import { Actions } from 'react-native-router-flux'
 
 const {width} = Dimensions.get('window')
 
@@ -13,8 +14,15 @@ export default class Home extends Component {
             data.push({tit:i,key:i})
         }
         this.state = {
-            data
+            data,
+            width: new Animated.Value(20)
         }
+    }
+    zoom = ()=>{
+        Animated.timing(this.state.width,{
+            toValue: 200,
+            // easing: Easing.elastic() 
+        }).start()
     }
     render() {
         return (
@@ -32,6 +40,20 @@ export default class Home extends Component {
                 </ScrollView> */}
                 {/* horizontal:实现水平滚动 */}
                 {/* numColumns:实现分栏布局 */}
+                <View>
+                    <Button onPress={()=>{Actions.mylist()}}>跳转</Button>
+                </View>
+                <Button 
+                    onPress={()=>{this.zoom()}}
+                    style={styles.btn}
+                >变大</Button>
+                <Animated.View
+                    style={{
+                        width: this.state.width,
+                        height: 200,
+                        backgroundColor: 'red'
+                    }}
+                ></Animated.View>
                 <FlatList
                     ListHeaderComponent={<Button onPress={()=>{
                         MessageBarManager.showAlert({
@@ -41,7 +63,6 @@ export default class Home extends Component {
                             stylesheetInfo:{backgroundColor:'blue'}
                         })
                     }} style={styles.btn}>头部</Button>}
-                    ListFooterComponent={<Button>尾部</Button>}
                     numColumns={2}
                     data={this.state.data}
                     renderItem={
