@@ -27,6 +27,7 @@ import Message from './Components/Message'
 import { Grid, Icon } from '@ant-design/react-native';
 import { outlineGlyphMap } from '@ant-design/icons-react-native/lib/outline';
 import MyList from './Components/MyList';
+import LocalStorage from './Components/LocalStorage';
 
 
 const App = () => {
@@ -76,6 +77,11 @@ const App = () => {
                         }
                       >
                         <Scene key='docs' component={Doc}/>
+                      </Scene>
+                      <Scene key='storage'
+                        title="获取数据"
+                      >
+                        <Scene key='fetchdata' component={LocalStorage}/>
                       </Scene>
                     </Tabs>
                   </Scene>
