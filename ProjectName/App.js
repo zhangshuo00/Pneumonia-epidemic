@@ -29,6 +29,8 @@ import { outlineGlyphMap } from '@ant-design/icons-react-native/lib/outline';
 import MyList from './Components/MyList';
 import LocalStorage from './Components/LocalStorage';
 
+console.disableYellowBox = true;
+
 
 const App = () => {
   return (
