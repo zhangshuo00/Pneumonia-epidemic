@@ -14,8 +14,11 @@ import {
   View,
   Text,
 } from 'react-native'
-import {Scene, Router, Tabs, Drawer, Lightbox, Modal, Overlay} from 'react-native-router-flux'
+import {Scene, Router, Tabs } from 'react-native-router-flux'
+import { Icon } from '@ant-design/react-native';
 import ListSort from './Components/ListSort'
+import Service from './Components/Service';
+import Personal from './Components/Personal';
 
 console.disableYellowBox = true;
 
@@ -23,29 +26,37 @@ console.disableYellowBox = true;
 const App = () => {
 	return (
 		<Router>
-			<Scene key="root">
-				<Scene
-					key="home"
-					component={}
-					title="首页"
-					initial={true}
-				/>
-				<Scene
-					key="sort"
-					component={ListSort}
-					title="分类"
-				/>
-				<Scene
-					key="personal"
-					component={}
-					title="个人中心"
-				/>
+			<Scene hideNavBar headerMode="none" key="root">
+				<Tabs>
+					<Scene
+						key="home"
+						component={Service}
+						title="首页"
+						icon={
+							({focused})=><Icon color={focused?'red':''} name="home"/>
+						}
+					/>
+					<Scene
+						key="sort"
+						component={ListSort}
+						title="分类"
+						icon={
+							({focused})=><Icon color={focused?'red':''} name="file"/>
+						}
+					/>
+					<Scene
+						key="personal"
+						component={Personal}
+						title="个人中心"
+						icon={
+							({focused})=><Icon color={focused?'red':''} name="user"/>
+						}
+					/>
+				</Tabs>
 			</Scene>
 		</Router>
 	);
 };
-const styles = StyleSheet.create({
 
-})
 
 export default App;
