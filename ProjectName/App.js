@@ -28,6 +28,7 @@ import { Grid, Icon } from '@ant-design/react-native';
 import { outlineGlyphMap } from '@ant-design/icons-react-native/lib/outline';
 import MyList from './Components/MyList';
 import LocalStorage from './Components/LocalStorage';
+import MyTs from './Components/MyTs';
 
 console.disableYellowBox = true;
 
@@ -56,7 +57,7 @@ const App = () => {
                           ({focused})=><Icon color={focused?'red':'green'} name="home"/>
                         }
                       >
-                        <Scene key='home' component={Home}/>
+                        <Scene key='home' component={MyTs}/>
                         <Scene key="mylist" component={MyList}/>
                       </Scene>
                       {/* 消息栏 */}
