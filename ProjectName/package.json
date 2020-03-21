@@ -19,12 +19,14 @@
     "react-native-image-picker": "^2.3.1",
     "react-native-message-bar": "^2.0.10",
     "react-native-router-flux": "4.0.6",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-swiper": "^1.6.0-nightly.5",
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^8.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^0.0.5",
     "@types/jest": "^25.1.4",

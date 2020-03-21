@@ -1,17 +1,58 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, TextInput,StyleSheet, Image, Dimensions, FlatList } from 'react-native'
+import { Text, View, ScrollView, TextInput,StyleSheet, Image, Dimensions, FlatList, Animated, TouchableOpacity, AsyncStorage, ToastAndroid } from 'react-native'
 import { Icon } from '@ant-design/react-native'
+import ImagePicker from 'react-native-image-picker'
+import ImageCropPicker from 'react-native-image-crop-picker'
+import Button from 'react-native-button'
+import { Actions } from 'react-native-router-flux'
 
 const {swidth,sheight} = Dimensions.get('window')
 const data = ['账户管理','收货地址','我的信息','我的订单','我的二维码','我的积分','我的收藏']
 const data1 = ['居家维修保养','出行接送','我的受赠人','我的住宿优惠','我的活动','我的发布']
+const options = {
+    title: '设置头像',
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+};
+
 
 export default class Personal extends Component {
+    constructor(){
+        super();
+        this.state = {
+            width:new Animated.Value(20),
+            avatarSource: require('../assets/images/touxiang_03.jpg')
+        }
+    }
+    takePhoto = async()=>{
+        await ImagePicker.showImagePicker(options,async(response)=>{
+            if (response.didCancel) {
+                return;
+            } else if (response.error) {
+                console.log('Error:', response.error);
+            } else if (response.customButton) {
+                console.log('custom:', response.customButton);
+            } else {
+                const source = { uri: response.uri };
+                await AsyncStorage.setItem('urlimg',JSON.stringify(source))
+                this.setState({
+                  avatarSource: source,
+                });
+            }
+        })
+    }
+    componentDidMount = async()=>{
+        await AsyncStorage.getItem('urlimg')===null ? this.setState({avatarSource:require('../assets/images/touxiang_03.jpg')}) : this.setState({avatarSource:JSON.parse(await AsyncStorage.getItem('urlimg'))});
+    }
     render() {
         return (
             <ScrollView>
                 <View style={{width:swidth,height:200,justifyContent:'center',alignItems:'center',backgroundColor:'#f23030'}}>
-                    <Image style={{width:60,height:60}} resizeMode="cover" source={require('../assets/images/touxiang_03.jpg')}/>
+                    <TouchableOpacity onPress={()=>{this.takePhoto()}}>
+                        <Image style={{width:60,height:60}} resizeMode="cover" source={this.state.avatarSource}/>
+                    </TouchableOpacity>
                     <Text style={{color:'white',marginTop:20}}>BINNU DHILLON</Text>
                 </View>
                 <View style={{marginTop:2,backgroundColor:'white',flexDirection:'row'}}>
@@ -43,7 +84,9 @@ export default class Personal extends Component {
                         renderItem={({item})=>(
                             <View style={{width:100,height:100,backgroundColor:'white',alignItems:'center',justifyContent:'space-around',flex:1}}>
                                 <Image source={require('../assets/images/icon_07.jpg')}/>
-                                <Text>{item}</Text>
+                                {
+                                    item === '我的发布' ? (<Text onPress={()=>Actions.two()}>{item}</Text>) : <Text>{item}</Text>
+                                }
                             </View>
                         )}
                     />
