@@ -14,14 +14,13 @@ import {
 import SplashScreen from 'react-native-splash-screen'
 import {Router, Overlay, Scene, Tabs, Drawer, Lightbox, Modal, Actions} from 'react-native-router-flux';
 import { Icon } from '@ant-design/react-native';
-import ListSort from './Components/ListSort'
-import Service from './Components/Service';
-import Center from './Components/Center';
-import Login from './Components/Login'
-import SwiperPage from './Components/SwiperPage'
-import Personal from './Components/Personal'
-import Releas from './Components/Releas'
-import Register from './Components/Register';
+import ListSort from './Components/ListSort'//商品分类
+import Service from './Components/Service';//首页
+import Login from './Components/Login'//登录
+import SwiperPage from './Components/SwiperPage'//引导页
+import Personal from './Components/Personal'//个人中心
+import Releas from './Components/Releas'//我的发布
+import Register from './Components/Register';//注册
 
 console.disableYellowBox = true;
 
