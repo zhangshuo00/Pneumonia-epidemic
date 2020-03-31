@@ -8,7 +8,8 @@ const Releas = () => {
     let [page,setPage] = useState(1);
     let [disabled,setDisabled] = useState(false);
     let [dataNum,setDataNum] = useState(0)
-    let a = ['已回复','未回复']
+    // let a = ['已回复','未回复']
+    // let b = Math.round(Math.random().toFixed(1))
     useEffect(()=>{
         fetch('https://cnodejs.org/api/v1/topics')
         .then(res=>res.json())
@@ -46,9 +47,13 @@ const Releas = () => {
                 data={data[page-1]}
                 renderItem={({item})=>(
                     <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:10}}>
-                        <Text>{item.title.length>15?item.title.slice(0,14)+'...':item.title}</Text>
-                        <Text>{item.create_at.slice(0,9)}</Text>
-                        <Text>{a[Math.round(Math.random().toFixed(1))]}</Text>
+                        <Text style={{width:'58%',marginLeft:10}}>{item.title.length>15?item.title.slice(0,14)+'...':item.title}</Text>
+                        <Text>{item.create_at.slice(0,10)}</Text>
+                        {
+                            (item.create_at.substr(9,1)%2===0) ? (<Text style={{marginRight:10}}>已回复</Text>)
+                            : (<Text style={{marginRight:10,color:'red'}}>未回复</Text>)
+                        }
+                        
                     </View>
                 )}
             />
