@@ -45,7 +45,7 @@ export default class Personal extends Component {
     }
     exit = ()=>{
         AsyncStorage.removeItem('user',()=>{
-            Actions.login()
+            Actions.loginPage()
             
         })
     }

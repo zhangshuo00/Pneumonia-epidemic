@@ -11,7 +11,7 @@ export default class Register extends Component {
             username:'',
             pwd:'',
             pwdR:'',
-            // isLoading:false
+            isLoading:false
         }
     }
     userhandle = (text)=>{
@@ -25,7 +25,7 @@ export default class Register extends Component {
     }
     register = ()=>{
         if(this.state.username != '' && this.state.pwd != '' && this.state.pwdR != ''){
-            // this.setState({isLoading:true})
+            this.setState({isLoading:true})
             if(this.state.pwdR != this.state.pwd){
                 Alert.alert('两次密码不一致')
             }else{
@@ -38,7 +38,7 @@ export default class Register extends Component {
                     if(res.data.result==='1'){
                         // AsyncStorage.setItem('user',JSON.stringify(res.data))
                         // .then(()=>{
-                            // this.setState({isloading:true})
+                            this.setState({isloading:true})
                             Actions.login();
                             Alert.alert('注册成功')
                         // })
@@ -121,6 +121,16 @@ export default class Register extends Component {
                         <Text>注册</Text>
                     </TouchableOpacity>
                 </View>
+                {
+                    this.state.isloading ? 
+                    (
+                        <View style={{alignItems:'center'}}>
+                            <ActivityIndicator size="large" color="red"/>
+                            <Text>正在登录...</Text>
+                        </View>
+                    )
+                    : null
+                }
             </View>
         )
     }

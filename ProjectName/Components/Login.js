@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Image, TextInput, AsyncStorage, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, Image, TextInput, AsyncStorage, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { Actions } from 'react-native-router-flux';
 import {myFetch} from '../utils'
@@ -20,17 +20,16 @@ export default class Login extends Component {
         this.setState({pwd:text})
     }
     login = ()=>{
+        this.setState({isLoading:true})
         if(this.state.username != '' && this.state.pwd != ''){
-            // this.setState({isLoading:true})
             myFetch.post('/login',{
                 username:this.state.username,
                 pwd:this.state.pwd
             }).then(res=>{
-                // 根据返回状态进行判断，正确时跳转首页
                 if(res.data.result==='1'){
                     AsyncStorage.setItem('user',JSON.stringify(res.data))
                     .then(()=>{
-                        this.setState({isloading:true})
+                        this.setState({isloading:false})
                         Actions.home();
                     })
                 }else if(res.data.result === '2'){
@@ -106,7 +105,14 @@ export default class Login extends Component {
                     </View>
                 </View>
                 {
-                    this.state.isloading ? <View><Text>正在登录。。。</Text></View> : null
+                    this.state.isloading ? 
+                    (
+                        <View style={{alignItems:'center'}}>
+                            <ActivityIndicator size="large" color="red"/>
+                            <Text>正在登录...</Text>
+                        </View>
+                    )
+                    : null
                 }
             </View>
         )
