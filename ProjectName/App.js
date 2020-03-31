@@ -8,11 +8,8 @@
 
 import React,{useState,useEffect} from 'react';
 import {
-  StyleSheet,
-  View,
-  AsyncStorage,
-  BackHandler,
-  ToastAndroid,
+	StyleSheet,View,Text, Image, 
+	BackHandler,ToastAndroid,AsyncStorage
 } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import {Router, Overlay, Scene, Tabs, Drawer, Lightbox, Modal, Actions} from 'react-native-router-flux';
@@ -22,6 +19,8 @@ import Service from './Components/Service';
 import Center from './Components/Center';
 import Login from './Components/Login'
 import SwiperPage from './Components/SwiperPage'
+import Personal from './Components/Personal'
+import Releas from './Components/Releas'
 
 console.disableYellowBox = true;
 
@@ -45,7 +44,7 @@ const App = () => {
 			if(!user){
 				SplashScreen.hide()
 			}
-			if(user&&user.token){
+			if(user&&user.result){
 				setIsLogin(true)
 				SplashScreen.hide()
 			}
@@ -68,10 +67,13 @@ const App = () => {
 	return (
 		<Router
 			backAndroidHandler={()=>{
-				if(Actions.currentScene != 'home'){
+				console.log(Actions.currentScene)
+				if(Actions.currentScene !== 'homes'){
 					Actions.pop()
 					return true
 				}else{
+					// BackHandler.exitApp()
+					console.log('aa')
 					if(new Date().getTime()-now<2000){
 						BackHandler.exitApp()
 					}else{
@@ -85,41 +87,59 @@ const App = () => {
 			<Overlay>
 				<Modal key="modal" hideNavBar>
 					<Lightbox key="lightbox">
-						<Drawer 
-							key="drawer"
-							contentComponent={()=><Text>drawer</Text>}
-							drawerIcon={()=><Icon name="menu"/>}
-							drawerWidth={400}
-						>
-							<Scene hideNavBar headerMode="none" key="root">
-								<Tabs>
+							<Scene key="root">
+								<Tabs key="tabbar" hideNavBar>
 									<Scene
 										key="home"
-										component={Service}
 										title="首页"
 										icon={
 											({focused})=><Icon color={focused?'red':''} name="home"/>
 										}
-									/>
+										headerMode="none"
+									>
+										<Scene key="homes" component={Service}/>
+									</Scene>
 									<Scene
 										key="sort"
-										component={ListSort}
 										title="分类"
 										icon={
 											({focused})=><Icon color={focused?'red':''} name="file"/>
 										}
-									/>
+										headerMode="none"
+									>
+										<Scene key="sorts" component={ListSort}/>
+									</Scene>
 									<Scene
 										key="personal"
-										component={Center}
+										// hideDrawerButton
+										// component={Center}
 										title="个人中心"
 										icon={
 											({focused})=><Icon color={focused?'red':''} name="user"/>
 										}
-									/>
+										
+									>
+										<Scene
+											key="one"
+											component={Personal}
+											initial={true}
+											hideNavBar
+											headerMode="none"
+										/>
+										<Scene
+											key="two"
+											component={Releas}
+											title="我的发布"
+											navigationBarStyle={{backgroundColor:'red'}}
+											titleStyle={{flex:1,textAlign:'center',color:'white'}} 
+											renderRightButton={<View></View>} 
+											navBarButtonColor="white"
+											headerMode="screen"
+										/>
+									</Scene>
 								</Tabs>
 							</Scene>
-						</Drawer>
+
 					</Lightbox>
 					<Scene initial={!isLogin} key="login" component={Login} />
 				</Modal>

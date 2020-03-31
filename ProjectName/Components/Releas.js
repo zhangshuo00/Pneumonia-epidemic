@@ -19,6 +19,10 @@ const Releas = () => {
             }
             setData(submin)
             setDataNum(res.data.length)
+            console.log(1)
+        })
+        .catch(err=>{
+            console.log(err)
         })
     })
     const nextPage = ()=>{

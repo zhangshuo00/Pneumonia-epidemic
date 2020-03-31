@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, TextInput,StyleSheet, Image, Dimensions, FlatList, Animated, TouchableOpacity, AsyncStorage, ToastAndroid } from 'react-native'
+import { Text, View, ScrollView, TextInput,StyleSheet, Image, Dimensions, FlatList, Animated, TouchableOpacity, AsyncStorage, ToastAndroid, Alert } from 'react-native'
 import { Icon } from '@ant-design/react-native'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
@@ -41,6 +41,12 @@ export default class Personal extends Component {
                   avatarSource: source,
                 });
             }
+        })
+    }
+    exit = ()=>{
+        AsyncStorage.removeItem('user',()=>{
+            Actions.login()
+            
         })
     }
     componentDidMount = async()=>{
@@ -94,7 +100,9 @@ export default class Personal extends Component {
                 <View style={{flexDirection:'row',justifyContent:'center',marginTop:10}}>
                     <Text style={{color:'#a4a4a4'}}>BINNU DHILLON</Text>
                     <Text style={{marginLeft:5,marginRight:5,color:'#a4a4a4'}}>|</Text>
-                    <Text style={{color:'#a4a4a4'}}>退出</Text>
+                    {/* <TouchableOpacity onPress={this.exit}> */}
+                        <Text onPress={this.exit} style={{color:'black'}}>退出</Text>
+                    {/* </TouchableOpacity> */}
                 </View>
             </ScrollView>
         )
