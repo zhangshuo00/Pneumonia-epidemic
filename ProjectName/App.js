@@ -21,6 +21,7 @@ import Login from './Components/Login'
 import SwiperPage from './Components/SwiperPage'
 import Personal from './Components/Personal'
 import Releas from './Components/Releas'
+import Register from './Components/Register';
 
 console.disableYellowBox = true;
 
@@ -67,20 +68,22 @@ const App = () => {
 	return (
 		<Router
 			backAndroidHandler={()=>{
-				console.log(Actions.currentScene)
-				if(Actions.currentScene !== 'homes'){
-					Actions.pop()
-					return true
-				}else{
-					// BackHandler.exitApp()
-					console.log('aa')
-					if(new Date().getTime()-now<2000){
-						BackHandler.exitApp()
-					}else{
-						ToastAndroid.show('确定要退出吗',100)
-						now = new Date().getTime()
-						return true
-					}
+				let cur = Actions.currentScene
+				console.log(cur)
+				switch(cur){
+					case 'homes':
+					case 'login':
+						if(new Date().getTime()-now<2000){
+							BackHandler.exitApp()
+						}else{
+							ToastAndroid.show('确定要退出吗',100)
+							now = new Date().getTime()
+							return true
+						}
+						break;
+					default:
+						Actions.pop()
+						break
 				}
 			}}
 		>
@@ -139,9 +142,28 @@ const App = () => {
 									</Scene>
 								</Tabs>
 							</Scene>
-
 					</Lightbox>
-					<Scene initial={!isLogin} key="login" component={Login} />
+					{/* <Scene initial={!isLogin} key="login" component={Login} /> */}
+					<Scene
+						initial={!isLogin}
+						key="loginPage"
+					>
+						<Scene
+							initial={true}
+							key="login"
+							component={Login}
+							hideNavBar
+						/>
+						<Scene 
+							key="register" 
+							component={Register}
+							title="注册"
+							navigationBarStyle={{backgroundColor:'red'}}
+							titleStyle={{flex:1,textAlign:'center',color:'white'}} 
+							renderRightButton={<View></View>} 
+							navBarButtonColor="white"
+						/>
+					</Scene>
 				</Modal>
 			</Overlay>
 		</Router>

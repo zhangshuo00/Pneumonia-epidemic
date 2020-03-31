@@ -42,7 +42,6 @@ export default class Login extends Component {
         }else{
             Alert.alert('请输入用户名和密码')
         }
-
     }
     render() {
         return (
@@ -59,7 +58,7 @@ export default class Login extends Component {
                         paddingLeft: 20,
                         }}>
                         <Icon name="user" color="red"/>
-                        <TextInput placeholder="用户名" 
+                        <TextInput placeholder="用户名为admin" 
                             onChangeText={this.userhandle}
                         />
                     </View>
@@ -93,6 +92,18 @@ export default class Login extends Component {
                         onPress={this.login}>
                         <Text>登录</Text>
                     </TouchableOpacity>
+                    <View 
+                        style={{
+                            display:"flex",
+                            flexDirection:"row",
+                            marginTop:10
+                        }}
+                    >
+                        <Text>还没有账号？</Text>
+                        <TouchableOpacity onPress={()=>{Actions.register()}}>
+                            <Text style={{color:'red'}}>注册</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 {
                     this.state.isloading ? <View><Text>正在登录。。。</Text></View> : null
